@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import co.com.prodigious.security.JwtConfig;
-import co.com.prodigious.security.JWTAuthorizationFilter;
+import co.com.prodigious.common.jwt.configuration.JwtConfig;
+import co.com.prodigious.common.jwt.filter.JWTAuthorizationFilter;
+
 
 @EnableWebSecurity
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
@@ -32,8 +33,6 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				// allow all who are accessing "auth" service
 				.antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-				// must be an admin if trying to access admin area (authentication is also required here)
-				.antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
 				// Any other request must be authenticated
 				.anyRequest().authenticated();
 	}

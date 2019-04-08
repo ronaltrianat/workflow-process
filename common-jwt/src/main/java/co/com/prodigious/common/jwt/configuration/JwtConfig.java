@@ -1,4 +1,4 @@
-package co.com.prodigious.security;
+package co.com.prodigious.common.jwt.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 

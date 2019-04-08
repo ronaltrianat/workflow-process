@@ -1,4 +1,4 @@
-package co.com.prodigious.security;
+package co.com.prodigious.common.jwt.filter;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -20,7 +20,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import co.com.prodigious.security.entities.UserCredentials;
+import co.com.prodigious.common.jwt.configuration.JwtConfig;
+import co.com.prodigious.common.jwt.dto.UserCredentials;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -43,8 +44,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		try {
 			UserCredentials creds = new ObjectMapper().readValue(request.getInputStream(), UserCredentials.class);
 
-			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getUsername(),
-					creds.getPassword(), Collections.emptyList());
+			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+					creds.getUsername(), creds.getPassword(), Collections.emptyList());
 
 			return authManager.authenticate(authToken);
 
@@ -66,5 +67,4 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
 	}
-
 }

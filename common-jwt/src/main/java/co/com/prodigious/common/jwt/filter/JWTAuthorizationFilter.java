@@ -1,4 +1,4 @@
-package co.com.prodigious.security;
+package co.com.prodigious.common.jwt.filter;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import co.com.prodigious.common.jwt.configuration.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 

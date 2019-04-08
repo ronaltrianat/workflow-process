@@ -1,4 +1,4 @@
-package co.com.prodigious.security.entities;
+package co.com.prodigious.common.jwt.dto;
 
 public class UserCredentials {
 

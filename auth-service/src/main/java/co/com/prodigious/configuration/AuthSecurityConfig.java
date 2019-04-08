@@ -13,8 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import co.com.prodigious.security.JwtConfig;
-import co.com.prodigious.security.JWTAuthenticationFilter;
+import co.com.prodigious.common.jwt.configuration.JwtConfig;
+import co.com.prodigious.common.jwt.filter.JWTAuthenticationFilter;
+
 
 @EnableWebSecurity
 public class AuthSecurityConfig extends WebSecurityConfigurerAdapter {
