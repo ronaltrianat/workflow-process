@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: api-gateway
+    
+server:
+  port: 8762
+  
+  
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+      
+
+zuul:
+  #prefix: /api
+  ignored-services: 
+    - '*'
+  routes:
+    gallery-service:
+      path: /gallery/**
+      service-id: gallery-service
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
+      
