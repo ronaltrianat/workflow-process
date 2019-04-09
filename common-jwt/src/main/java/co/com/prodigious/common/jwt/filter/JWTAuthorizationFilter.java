@@ -9,58 +9,62 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import co.com.prodigious.common.jwt.configuration.JwtConfig;
+import co.com.prodigious.common.jwt.provider.JwtTokenProvider;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
-	private final JwtConfig jwtConfig;
-
-	public JWTAuthorizationFilter(JwtConfig jwtConfig) {
-		this.jwtConfig = jwtConfig;
+	private JwtTokenProvider tokenProvider;
+	
+	public JWTAuthorizationFilter(JwtTokenProvider tokenProvider) {
+		this.tokenProvider = tokenProvider;
 	}
+	
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-
-		String header = request.getHeader(jwtConfig.getHeader());
-
-		if (header == null || !header.startsWith(jwtConfig.getPrefix())) {
-			filterChain.doFilter(request, response);
-			return;
-		}
-
-		String token = header.replace(jwtConfig.getPrefix(), "");
-
+		
 		try {
-			Claims claims = Jwts.parser().setSigningKey(jwtConfig.getSecret().getBytes())
-					.parseClaimsJws(token).getBody();
+			String jwt = getJwtFromRequest(request);
+			
+			if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+				Claims claims = tokenProvider.getClaimsFromJWT(jwt);
+				String username = claims.getSubject();
+				
+				if (username != null) {
 
-			String username = claims.getSubject();
+					@SuppressWarnings("unchecked")
+					List<String> authorities = (List<String>) claims.get("authorities");
 
-			if (username != null) {
+					UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null,
+							authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 
-				@SuppressWarnings("unchecked")
-				List<String> authorities = (List<String>) claims.get("authorities");
+					SecurityContextHolder.getContext().setAuthentication(auth);
+				}
 
-				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null,
-						authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-
-				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			SecurityContextHolder.clearContext();
 		}
 
 		filterChain.doFilter(request, response);
 	}
 
+	private String getJwtFromRequest(HttpServletRequest request) {
+		String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+			return bearerToken.substring(7, bearerToken.length());
+		}
+		return null;
+	}
 }

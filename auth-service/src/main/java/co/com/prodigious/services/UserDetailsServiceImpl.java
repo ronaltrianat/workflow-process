@@ -3,7 +3,6 @@ package co.com.prodigious.services;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -18,9 +17,12 @@ import co.com.prodigious.repositories.UsersRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UsersRepository usersRepository;
+	private final UsersRepository usersRepository;
 
+	public UserDetailsServiceImpl(UsersRepository usersRepository) {
+		this.usersRepository = usersRepository;
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

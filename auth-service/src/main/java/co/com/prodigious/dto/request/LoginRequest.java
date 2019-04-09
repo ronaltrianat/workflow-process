@@ -1,10 +1,21 @@
-package co.com.prodigious.common.jwt.dto;
+package co.com.prodigious.dto.request;
 
-public class UserCredentials {
+import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
+public class LoginRequest implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@NotBlank
 	private String username;
+
+	@NotBlank
 	private String password;
 
+	public LoginRequest() {}
+	
 	public String getUsername() {
 		return username;
 	}
