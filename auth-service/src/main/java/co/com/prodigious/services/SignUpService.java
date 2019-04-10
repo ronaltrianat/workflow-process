@@ -1,7 +1,5 @@
 package co.com.prodigious.services;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +19,17 @@ public class SignUpService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public ResponseEntity<ApiResponse> registerUser(SignUpRequest signUpRequest) {
+	public ApiResponse registerUser(SignUpRequest signUpRequest) {
 
 		if (usersRepository.existsByDocumentNumber(signUpRequest.getDocumentNumber())) {
-			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Username is already taken!"),
-					HttpStatus.BAD_REQUEST);
+			return new ApiResponse("Username is already taken!");
 		}
 
 		usersRepository.save(getUserEntity(signUpRequest));
 
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new ApiResponse(true, "User registered successfully"));
+		return new ApiResponse(true, "User registered successfully");
 	}
 
-	
 	private UserEntity getUserEntity(SignUpRequest signUpRequest) {
 		UserEntity user = new UserEntity();
 		user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));

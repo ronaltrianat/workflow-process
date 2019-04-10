@@ -13,6 +13,10 @@ public class ApiResponse implements Serializable {
 		this.success = success;
 		this.message = message;
 	}
+	
+	public ApiResponse(String message) {
+		this.message = message;
+	}
 
 	public boolean isSuccess() {
 		return success;
