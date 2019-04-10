@@ -13,13 +13,13 @@ import co.com.prodigious.dto.response.JwtAuthenticationResponse;
 
 
 @Service
-public class AuthService {
+public class SignInService {
 
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenProvider jwtTokenProvider;
 	
 
-	public AuthService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+	public SignInService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
 		this.authenticationManager = authenticationManager;
 		this.jwtTokenProvider = jwtTokenProvider;
 	}

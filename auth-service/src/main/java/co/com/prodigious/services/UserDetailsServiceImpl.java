@@ -1,7 +1,6 @@
 package co.com.prodigious.services;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -26,11 +25,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		UserEntity user = usersRepository.findByDocumentNumber(username);
-
-		if (Objects.isNull(user) || Objects.isNull(user.getUserId())) {
-			throw new UsernameNotFoundException("Username: " + username + " not found");
-		}
+		UserEntity user = usersRepository.findByDocumentNumber(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
 
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN");
 

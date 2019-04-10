@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private BigInteger userId;
 
@@ -25,10 +25,13 @@ public class UserEntity {
 	private String surname;
 
 	@Column(name = "age")
-	private String age;
+	private int age;
 
 	@Column(name = "email")
 	private String email;
+
+	@Column(name = "fk_document_type_id")
+	private int fkDocumentTypeId;
 
 	@Column(name = "document_number")
 	private String documentNumber;
@@ -37,16 +40,13 @@ public class UserEntity {
 	private String password;
 
 	@Column(name = "fk_user_status_id")
-	private String fkUserStatusId;
+	private int fkUserStatusId;
 
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "fk_document_type_id")
-	private String fkDocumentTypeId;
-
-	public UserEntity() {
-	}
+	@Column(name = "phone_number")
+	private String phoneNumber;
 
 	public BigInteger getUserId() {
 		return userId;
@@ -72,11 +72,11 @@ public class UserEntity {
 		this.surname = surname;
 	}
 
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
@@ -86,6 +86,14 @@ public class UserEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getFkDocumentTypeId() {
+		return fkDocumentTypeId;
+	}
+
+	public void setFkDocumentTypeId(int fkDocumentTypeId) {
+		this.fkDocumentTypeId = fkDocumentTypeId;
 	}
 
 	public String getDocumentNumber() {
@@ -104,11 +112,11 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public String getFkUserStatusId() {
+	public int getFkUserStatusId() {
 		return fkUserStatusId;
 	}
 
-	public void setFkUserStatusId(String fkUserStatusId) {
+	public void setFkUserStatusId(int fkUserStatusId) {
 		this.fkUserStatusId = fkUserStatusId;
 	}
 
@@ -120,19 +128,20 @@ public class UserEntity {
 		this.address = address;
 	}
 
-	public String getFkDocumentTypeId() {
-		return fkDocumentTypeId;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setFkDocumentTypeId(String fkDocumentTypeId) {
-		this.fkDocumentTypeId = fkDocumentTypeId;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Override
 	public String toString() {
 		return "UserEntity [userId=" + userId + ", name=" + name + ", surname=" + surname + ", age=" + age + ", email="
-				+ email + ", documentNumber=" + documentNumber + ", password=" + password + ", fkUserStatusId="
-				+ fkUserStatusId + ", address=" + address + ", fkDocumentTypeId=" + fkDocumentTypeId + "]";
+				+ email + ", fkDocumentTypeId=" + fkDocumentTypeId + ", documentNumber=" + documentNumber
+				+ ", password=" + password + ", fkUserStatusId=" + fkUserStatusId + ", address=" + address
+				+ ", phoneNumber=" + phoneNumber + "]";
 	}
 
 }
