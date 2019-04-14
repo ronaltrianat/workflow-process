@@ -6,11 +6,16 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/activiti_db_test
-    username: user_activiti_test
+    url: jdbc:mysql://localhost:3306/activiti_db
+    username: user_activiti
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
-    
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 128KB
+      max-request-size: 128KB
+        
     
 server:
   port: 8300
@@ -22,4 +27,3 @@ eureka:
     service-url:
       default-zone: http://localhost:8761/eureka
       
-    

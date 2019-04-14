@@ -19,9 +19,11 @@ quit;
 ```
 
 # Primera Configuracion Activiti DB - password
+```
 mysql -u root -p
 create database activiti_db;
 create user 'user_activiti'@'%%' identified with mysql_native_password BY 'password';
 grant all privileges on activiti_db.* TO 'user_activiti'@'%%';
 flush privileges;
 quit;
+```
