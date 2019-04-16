@@ -21,5 +21,5 @@ public class StartProcessInstanceResponse extends ApiResponse {
 	public void setProcessInstanceId(String processInstanceId) {
 		this.processInstanceId = processInstanceId;
 	}
-
+	
 }
