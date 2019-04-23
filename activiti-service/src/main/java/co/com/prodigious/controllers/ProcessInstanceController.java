@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.prodigious.dto.request.CompleteTaskRequest;
 import co.com.prodigious.dto.request.StartProcessInstanceRequest;
-import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.dto.response.StartProcessInstanceResponse;
 import co.com.prodigious.service.ProcessRuntimeService;
 
@@ -27,13 +25,8 @@ public class ProcessInstanceController {
 
 	@PostMapping("/start")
 	public ResponseEntity<StartProcessInstanceResponse> startProcessInstance(
-			@Valid @RequestBody StartProcessInstanceRequest request) {
+			@Valid @RequestBody StartProcessInstanceRequest request) throws Exception {
 		return ResponseEntity.ok(processRuntimeService.startProcessInstance(request));
 	}
 	
-	@PostMapping("/complete")
-	public ResponseEntity<ApiResponse> completeTask(
-			@Valid @RequestBody CompleteTaskRequest request) {
-		return ResponseEntity.ok(processRuntimeService.completeTask(request));
-	}
 }

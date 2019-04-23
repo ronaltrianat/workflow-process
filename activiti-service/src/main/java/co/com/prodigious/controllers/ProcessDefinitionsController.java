@@ -17,13 +17,14 @@ import co.com.prodigious.service.ProcessDefinitionsService;
 public class ProcessDefinitionsController {
 
 	private final ProcessDefinitionsService processDefinitionsService;
-	
+
 	public ProcessDefinitionsController(ProcessDefinitionsService processDefinitionsService) {
 		this.processDefinitionsService = processDefinitionsService;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<ProcessDefinitionResponse> uploadProcessInstance(@Valid @ModelAttribute ProcessDefinitionRequest request) throws Exception {
+	public ResponseEntity<ProcessDefinitionResponse> uploadProcessInstance(
+			@Valid @ModelAttribute ProcessDefinitionRequest request) throws Exception {
 		return ResponseEntity.ok(processDefinitionsService.uploadProcessDefinition(request));
 	}
 }
