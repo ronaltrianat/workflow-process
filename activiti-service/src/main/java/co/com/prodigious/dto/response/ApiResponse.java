@@ -3,7 +3,9 @@ package co.com.prodigious.dto.response;
 import java.io.Serializable;
 
 import co.com.prodigious.constants.APIConstants;
+import lombok.Data;
 
+@Data
 public class ApiResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,22 +19,6 @@ public class ApiResponse implements Serializable {
 	}
 	
 	public ApiResponse(String message) {
-		this.message = message;
-	}
-
-	public boolean isSuccess() {
-		return success;
-	}
-
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
 		this.message = message;
 	}
 

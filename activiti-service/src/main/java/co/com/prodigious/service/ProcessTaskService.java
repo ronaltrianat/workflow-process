@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.prodigious.dto.TaskDTO;
 import co.com.prodigious.dto.request.CompleteTaskRequest;
 import co.com.prodigious.dto.response.ApiResponse;
+import co.com.prodigious.mappers.TaskMapper;
 
 @Service
 public class ProcessTaskService {
@@ -33,7 +34,7 @@ public class ProcessTaskService {
 		Optional<List<Task>> tasks = Optional.ofNullable(taskService.createTaskQuery().taskAssignee(assignee).list());
 		List<TaskDTO> response = new ArrayList<>();
 		tasks.ifPresent(taskList -> taskList.forEach(task -> {
-			if(Objects.nonNull(task)) response.add(getInfoTask(task));
+			if(Objects.nonNull(task)) response.add(TaskMapper.activitiTaskToTaskDTO(task));
 		}));
 		return response;
 	}
@@ -47,7 +48,7 @@ public class ProcessTaskService {
 		Optional<List<Task>> tasks = Optional.ofNullable(taskService.createTaskQuery().taskCandidateGroup(role).list());
 		List<TaskDTO> response = new ArrayList<>();
 		tasks.ifPresent(taskList -> taskList.forEach(task -> {
-			if(Objects.nonNull(task)) response.add(getInfoTask(task));
+			if(Objects.nonNull(task)) response.add(TaskMapper.activitiTaskToTaskDTO(task));
 		}));
 		return response;
 	}
@@ -66,32 +67,4 @@ public class ProcessTaskService {
 		return ApiResponse.getSuccessfulResponse();
 	}
 	
-	
-	/**
-	 * 
-	 * @param task
-	 * @return
-	 */
-	private TaskDTO getInfoTask(Task task) {
-		TaskDTO taskDTO = new TaskDTO();
-		taskDTO.setCategory(task.getCategory());
-		taskDTO.setClaimTime(task.getClaimTime());
-		taskDTO.setCreateTime(task.getCreateTime());
-		taskDTO.setDelegationStateName(Objects.isNull(task.getDelegationState()) ? "" : task.getDelegationState().name());
-		taskDTO.setDescription(task.getDescription());
-		taskDTO.setDueDate(task.getDueDate());
-		taskDTO.setExecutionId(task.getExecutionId());
-		taskDTO.setFormKey(task.getFormKey());
-		taskDTO.setId(task.getId());
-		taskDTO.setName(task.getName());
-		taskDTO.setOwner(task.getOwner());
-		taskDTO.setParentTaskId(task.getParentTaskId());
-		taskDTO.setPriority(task.getPriority());
-		taskDTO.setProcessDefinitionId(task.getProcessDefinitionId());
-		taskDTO.setProcessInstanceId(task.getProcessInstanceId());
-		taskDTO.setProcessVariables(task.getProcessVariables());
-		taskDTO.setTaskDefinitionKey(task.getTaskDefinitionKey());
-		taskDTO.setTaskLocalVariables(task.getTaskLocalVariables());
-		return taskDTO;
-	}
 }

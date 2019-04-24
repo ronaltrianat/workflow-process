@@ -5,6 +5,9 @@ import java.util.Map;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Data;
+
+@Data
 public class CompleteTaskRequest implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,21 +15,5 @@ public class CompleteTaskRequest implements Serializable {
 	@NotEmpty
 	private String taskId;
 	private Map<String, Object> variables;
-
-	public String getTaskId() {
-		return taskId;
-	}
-
-	public void setTaskId(String taskId) {
-		this.taskId = taskId;
-	}
-
-	public Map<String, Object> getVariables() {
-		return variables;
-	}
-
-	public void setVariables(Map<String, Object> variables) {
-		this.variables = variables;
-	}
 
 }

@@ -7,8 +7,8 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.prodigious.constants.APIConstants;
 import co.com.prodigious.dto.request.StartProcessInstanceRequest;
+import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.dto.response.StartProcessInstanceResponse;
 
 @Service
@@ -32,12 +32,15 @@ public class ProcessRuntimeService {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(request.getProcessKey(),
 				request.getVariables());
 
+		StartProcessInstanceResponse response = null;
+		
 		if (Objects.nonNull(processInstance) && Objects.nonNull(processInstance.getProcessInstanceId())) {
-			return new StartProcessInstanceResponse(APIConstants.OK, APIConstants.MESSAGE_OK,
-					processInstance.getProcessInstanceId());
+			response = StartProcessInstanceResponse.builder()
+					.processInstanceId(processInstance.getProcessInstanceId())
+					.apiResponse(ApiResponse.getSuccessfulResponse()).build();
 		}
 
-		return null;
+		return response;
 	}
 	
 }
