@@ -1,5 +1,7 @@
 package co.com.prodigious.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,8 +20,10 @@ public class ProcessDefinitionUtil {
 	private static final String ERROR_TAG_PROCESS_NOT_FOUNT = "TAG_PROCESS_NOT_FOUNT";
 	private static final String ERROR_ITEM_ID_OR_NAME_NOT_FOUNT = "ITEM_ID_OR_NAME_NOT_FOUNT";
 	private static final String TAG_PROCESS = "process";
+	private static final String TAG_USER_TASK = "userTask";
 	private static final String ITEM_ID = "id";
 	private static final String ITEM_NAME = "name";
+	private static final String ITEM_FORM_KEY = "activiti:formKey";
 	
 	
 	/**
@@ -31,9 +35,11 @@ public class ProcessDefinitionUtil {
 	public static ProcessDefinitionDTO getProcessParameters(ProcessDefinitionRequest request) throws Exception {
 		
 		ProcessDefinitionDTO processDefinitionDTO = null;
+		List<String> formKeyList = new ArrayList<>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(request.getFile().getInputStream());
+		
 		NodeList nodeList = doc.getElementsByTagName(TAG_PROCESS);
 		
 		// validar que exista el tag process en el proceso a configurar
@@ -49,10 +55,23 @@ public class ProcessDefinitionUtil {
 			throw new ProcessDefinitionException(ERROR_ITEM_ID_OR_NAME_NOT_FOUNT);
 		}
 		
+		// obtener la lista de los formularios configurados en el proceso
+		nodeList = doc.getElementsByTagName(TAG_USER_TASK);
+		
+		if (Objects.nonNull(nodeList) && nodeList.getLength() > 0) {
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				NamedNodeMap atr = nodeList.item(i).getAttributes();
+				if (Objects.nonNull(atr.getNamedItem(ITEM_FORM_KEY))) {
+					formKeyList.add(atr.getNamedItem(ITEM_FORM_KEY).getNodeValue());
+				}
+			}
+		}
+		
 		// armar objeto de respuesta
 		processDefinitionDTO = ProcessDefinitionDTO.builder()
-				.processDefinitionKey(node.getNamedItem(ITEM_ID).getTextContent())
-				.processDefinitionName(node.getNamedItem(ITEM_NAME).getTextContent()).build();
+				.processDefinitionKey(node.getNamedItem(ITEM_ID).getNodeValue())
+				.processDefinitionName(node.getNamedItem(ITEM_NAME).getNodeValue())
+				.formKeyList(formKeyList).build();
 		
 		return processDefinitionDTO;
 		
