@@ -15,12 +15,6 @@ public class ProcessDefinitionRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NotBlank
-	private String processName;
-
-	@NotBlank
-	private String processKey;
-
-	@NotBlank
 	private String processCategory;
 
 	@NotNull

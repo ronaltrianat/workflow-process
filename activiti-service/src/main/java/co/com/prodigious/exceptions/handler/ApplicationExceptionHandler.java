@@ -10,11 +10,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import co.com.prodigious.dto.response.ApiResponse;
+import co.com.prodigious.exceptions.ProcessDefinitionException;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(value = { ActivitiObjectNotFoundException.class })
+	@ExceptionHandler(value = { ActivitiObjectNotFoundException.class, ProcessDefinitionException.class })
 	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
 		return handleExceptionInternal(ex, new ApiResponse(ex.getMessage()), 
 				new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

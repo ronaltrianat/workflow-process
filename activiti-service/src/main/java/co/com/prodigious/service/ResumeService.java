@@ -12,11 +12,14 @@ public class ResumeService {
 		Map<String, Object> vars = execution.getVariables();
 		System.out.println("Storing resume ...");
 		vars.forEach((k, v) -> System.out.println((k + ":" + v)));
+		
+		execution.setVariable("user_finish", "ronal");
 	}
 	
 	public void storePeriod(DelegateExecution execution) throws Exception {
 		Map<String, Object> vars = execution.getVariables();
 		System.out.println("Storing period ...");
 		vars.forEach((k, v) -> System.out.println((k + ":" + v)));
+		execution.setVariable("user_finish", "ronal");
 	}
 }
