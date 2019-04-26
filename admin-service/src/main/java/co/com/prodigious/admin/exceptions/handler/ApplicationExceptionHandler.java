@@ -3,7 +3,6 @@ package co.com.prodigious.admin.exceptions.handler;
 import java.util.Objects;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,29 +16,28 @@ import co.com.prodigious.commons.util.dto.response.ApiResponse;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
-
-	@ExceptionHandler(value = { DataIntegrityViolationException.class })
+	
+	@ExceptionHandler(value = { AdminServiceException.class })
 	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-		Throwable throwable = ExceptionUtils.getRootCause(ex);
-		return handleExceptionInternal(ex, getErrorMessage(throwable), new HttpHeaders(), 
+		return handleExceptionInternal(ex, getErrorMessage(ex), new HttpHeaders(), 
 				HttpStatus.BAD_REQUEST, request);
 	}
 
 	@ExceptionHandler(value = { Exception.class })
 	protected ResponseEntity<Object> handleErrorGeneral(RuntimeException ex, WebRequest request) {
-		return handleExceptionInternal(ex, new ApiResponse(ex.getMessage()), new HttpHeaders(),
-				HttpStatus.INTERNAL_SERVER_ERROR, request);
+		return handleExceptionInternal(ex, getErrorMessage(ex), new HttpHeaders(), 
+				HttpStatus.BAD_REQUEST, request);
 	}
 	
-	private Object getErrorMessage(Throwable throwable) {
+	private ApiResponse getErrorMessage(RuntimeException ex) {
 		
-		ApiResponse apiResponse = new ApiResponse(APIConstants.GENERAL_ERROR_MESSAGE);
+		String errorMessage = ExceptionUtils.getRootCauseMessage(ex);
 		
-		if(Objects.isNull(throwable)) return new ApiResponse(APIConstants.GENERAL_ERROR_MESSAGE);
+		if(Objects.isNull(errorMessage) || errorMessage.isEmpty()) 
+			return new ApiResponse(APIConstants.GENERAL_ERROR_MESSAGE);
 		
-		// TODO: Dar manejo al mensaje de error
-		apiResponse = new ApiResponse(throwable.getMessage());
-		
-		return apiResponse;
+		return new ApiResponse(errorMessage);
 	}
+	
+	
 }
