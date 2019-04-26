@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import co.com.prodigious.dto.response.ApiResponse;
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.exceptions.ProcessDefinitionException;
 
 @ControllerAdvice

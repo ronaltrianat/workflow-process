@@ -2,6 +2,7 @@ package co.com.prodigious.dto.response;
 
 import java.io.Serializable;
 
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import lombok.Builder;
 import lombok.Data;
 

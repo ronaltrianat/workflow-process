@@ -7,8 +7,8 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.dto.request.StartProcessInstanceRequest;
-import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.dto.response.StartProcessInstanceResponse;
 
 @Service

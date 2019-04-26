@@ -1,19 +1,20 @@
 package co.com.prodigious.admin.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.com.prodigious.admin.dto.request.FormConfigurationRequest;
-import co.com.prodigious.admin.dto.response.ApiResponse;
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.entities.ProcessFormsEntity;
 import co.com.prodigious.repositories.ProcessFormsRepository;
 
 @Service
 public class FormsConfigurationService {
 
-	@Autowired
-	private ProcessFormsRepository processFormsRepository;
+	private final ProcessFormsRepository processFormsRepository;
 	
+	public FormsConfigurationService(ProcessFormsRepository processFormsRepository) {
+		this.processFormsRepository = processFormsRepository;
+	}
 
 	/**
 	 * Metodo encargado de almacenar la configuracion de un formulario de proceso en base de datos.

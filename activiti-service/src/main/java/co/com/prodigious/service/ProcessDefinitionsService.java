@@ -6,9 +6,9 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.springframework.stereotype.Service;
 
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.dto.ProcessDefinitionDTO;
 import co.com.prodigious.dto.request.ProcessDefinitionRequest;
-import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.dto.response.ProcessDefinitionResponse;
 import co.com.prodigious.util.ProcessDefinitionUtil;
 

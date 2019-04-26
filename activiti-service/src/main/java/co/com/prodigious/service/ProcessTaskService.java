@@ -10,9 +10,9 @@ import org.activiti.engine.task.Task;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.dto.TaskDTO;
 import co.com.prodigious.dto.request.CompleteTaskRequest;
-import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.mappers.TaskMapper;
 
 @Service

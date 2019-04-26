@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.prodigious.admin.dto.request.FormConfigurationRequest;
-import co.com.prodigious.admin.dto.response.ApiResponse;
 import co.com.prodigious.admin.services.FormsConfigurationService;
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 
 @RestController
 @RequestMapping("/forms-configuration")

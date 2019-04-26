@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.prodigious.commons.util.dto.response.ApiResponse;
 import co.com.prodigious.dto.TaskDTO;
 import co.com.prodigious.dto.request.CompleteTaskRequest;
-import co.com.prodigious.dto.response.ApiResponse;
 import co.com.prodigious.service.ProcessTaskService;
 
 @RestController
