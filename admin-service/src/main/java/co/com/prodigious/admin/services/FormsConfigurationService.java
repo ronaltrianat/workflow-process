@@ -11,25 +11,25 @@ import co.com.prodigious.repositories.ProcessFormsRepository;
 public class FormsConfigurationService {
 
 	private final ProcessFormsRepository processFormsRepository;
-	
+
 	public FormsConfigurationService(ProcessFormsRepository processFormsRepository) {
 		this.processFormsRepository = processFormsRepository;
 	}
 
 	/**
-	 * Metodo encargado de almacenar la configuracion de un formulario de proceso en base de datos.
+	 * Metodo encargado de almacenar la configuracion de un formulario de proceso en
+	 * base de datos.
+	 * 
 	 * @param request Objeto que contiene la informacion del formulario a almacenar.
 	 * @return Objeto con la respuesta de la configuracion del formulario.
 	 */
 	public ApiResponse configureForm(FormConfigurationRequest request) {
-		
-		ProcessFormsEntity entity = ProcessFormsEntity.builder()
-				.contentForm(request.getContentForm())
-				.description(request.getDescription())
-				.name(request.getName()).build();
-		
+
+		ProcessFormsEntity entity = ProcessFormsEntity.builder().contentForm(request.getContentForm())
+				.description(request.getDescription()).name(request.getName()).build();
+
 		processFormsRepository.save(entity);
-		
+
 		return ApiResponse.getSuccessfulResponse();
 	}
 }
