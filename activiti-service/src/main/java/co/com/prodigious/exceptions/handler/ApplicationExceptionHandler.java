@@ -17,13 +17,13 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
 	@ExceptionHandler(value = { ActivitiObjectNotFoundException.class, ProcessDefinitionException.class })
 	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-		return handleExceptionInternal(ex, new ApiResponse(ex.getMessage()), 
+		return handleExceptionInternal(ex, ApiResponse.failedResponse(ex.getMessage()), 
 				new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 	
 	@ExceptionHandler(value = { Exception.class })
 	protected ResponseEntity<Object> handleErrorGeneral(RuntimeException ex, WebRequest request) {
-		return handleExceptionInternal(ex, new ApiResponse(ex.getMessage()), 
+		return handleExceptionInternal(ex, ApiResponse.failedResponse(ex.getMessage()), 
 				new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 }

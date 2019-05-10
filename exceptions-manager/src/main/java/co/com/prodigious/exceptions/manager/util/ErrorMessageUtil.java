@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
-import co.com.prodigious.commons.util.constants.APIConstants;
 import co.com.prodigious.commons.util.dto.response.ApiResponse;
 
 public class ErrorMessageUtil {
@@ -26,13 +25,11 @@ public class ErrorMessageUtil {
 		Throwable throwable = ExceptionUtils.getRootCause(ex);
 		
 		if (Objects.isNull(throwable))
-			return new ApiResponse(APIConstants.GENERAL_ERROR_MESSAGE);
+			return ApiResponse.failedGenericResponse();
 
 		// TODO: Dar manejo al mensaje de error
 		String message = ERROR_MAP.get(throwable.getMessage().hashCode());
 
-		ApiResponse apiResponse = new ApiResponse(Objects.nonNull(message) ? message : throwable.getMessage());
-
-		return apiResponse;
+		return ApiResponse.failedResponse(Objects.nonNull(message) ? message : throwable.getMessage());
 	}
 }

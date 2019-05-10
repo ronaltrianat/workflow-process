@@ -12,6 +12,7 @@ public class FormsConfigurationService {
 
 	private final ProcessFormsRepository processFormsRepository;
 
+	
 	public FormsConfigurationService(ProcessFormsRepository processFormsRepository) {
 		this.processFormsRepository = processFormsRepository;
 	}
@@ -30,6 +31,6 @@ public class FormsConfigurationService {
 
 		processFormsRepository.save(entity);
 
-		return ApiResponse.getSuccessfulResponse();
+		return ApiResponse.successfulResponse();
 	}
 }

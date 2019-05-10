@@ -42,7 +42,7 @@ public class ProcessDefinitionsService {
 		
 		if(Objects.nonNull(deployment) && Objects.nonNull(deployment.getId())) {
 			response = ProcessDefinitionResponse.builder().processDefinitionId(deployment.getId())
-					.apiResponse(ApiResponse.getSuccessfulResponse()).build();
+					.apiResponse(ApiResponse.successfulResponse()).build();
 		}
 		
 		return response;

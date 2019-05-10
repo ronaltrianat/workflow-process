@@ -64,7 +64,7 @@ public class ProcessTaskService {
 	@Transactional
 	public ApiResponse completeTask(CompleteTaskRequest request) {
 		taskService.complete(request.getTaskId(), request.getVariables());
-		return ApiResponse.getSuccessfulResponse();
+		return ApiResponse.successfulResponse();
 	}
 	
 }

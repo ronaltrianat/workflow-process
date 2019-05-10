@@ -37,7 +37,7 @@ public class ProcessRuntimeService {
 		if (Objects.nonNull(processInstance) && Objects.nonNull(processInstance.getProcessInstanceId())) {
 			response = StartProcessInstanceResponse.builder()
 					.processInstanceId(processInstance.getProcessInstanceId())
-					.apiResponse(ApiResponse.getSuccessfulResponse()).build();
+					.apiResponse(ApiResponse.successfulResponse()).build();
 		}
 
 		return response;
